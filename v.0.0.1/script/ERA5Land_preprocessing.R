@@ -19,9 +19,10 @@ fileslist <- foreach (i = lf, .combine=rbind) %dopar% {
   fileslist
 }
 
-fileslist <- fileslist[fileslist$year>=2019,]
+fileslist <- fileslist[fileslist$year<2023,]
+fileslist <- fileslist[fileslist$var=="t2m",]
 
-source("script/WE/functions.R")
+source("v.0.0.1/script/functions.R")
 path <- paste0(pathSSD,"/data/WE/ERA5Land/hourly/raw")
 variable <- c("u10","v10")
 y <- ERA5Land(variable=variable,fileslist=fileslist,path=path)
