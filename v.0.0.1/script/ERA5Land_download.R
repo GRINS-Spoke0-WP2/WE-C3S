@@ -13,7 +13,7 @@ variables<-c("10m_u_component_of_wind","2m_dewpoint_temperature",
 
 
 
-years<-c(2015:2018)
+years<-c(2019:2023)
 months <- c("01","02","03","04","05","06","07","08","09","10","11","12")
 # quarters <- c(paste("01","02","03","04",sep = ","),paste("05","06","07","08",sep = ","),paste("09","10","11","12",sep = ","))
 time_wait <- 1 #seconds
