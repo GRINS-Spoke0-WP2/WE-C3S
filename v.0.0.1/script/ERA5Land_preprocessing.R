@@ -3,7 +3,7 @@ registerDoParallel()
 library(ncdf4)
 
 vers <- "v.0.0.1"
-ssd_path <- "/Volumes/Extreme SSD/Lavoro/GRINS/R_GRINS/GitHub/WE-C3S" #local
+ssd_path <- "/Volumes/Extreme SSD/Lavoro/GRINS/GitHub/WE-C3S" #local
 versD <- paste0(ssd_path,"/",vers)
 
 #listfiles
