@@ -29,6 +29,10 @@ fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
   fileslist
 }
 
+#the filelist object is a table with the following header:
+# -> name of the netcdf file | variable | year | month <- #
+# these infomation are used to run the functions
+
 source(paste0(vers,"/script/functions.R"))
 path <- paste0(versD,"/data/ERA5Land/hourly/raw")
 variable <- c("u10", "v10")

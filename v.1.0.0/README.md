@@ -3,10 +3,31 @@
 The following section illustrates the operations to reproduce the WE-C3S v.1.0.0 dataset:
 
 1. [Download](#C3S-1-Download)
-2. [Preprocess](#C3S-2-Preprocessing)
-3. [Change of temporal resolution](#C3S-3-Change-of-temporal-resolution)
+2. [Managing](#C3S-2-Managing)
+3. [Export](#C3S-3-Export)
 
 ### C3S 1: Download
 
-The first script are [`ERA5Land_download.R`](script/ERA5Land_download.R) and [`ERA5SL_download.R`](script/ERA5SL_download.R). These scripts make the request about weather variables to the [Climate Change Service](https://cds.climate.copernicus.eu) ([download link](https://eeadmz1-cws-wp-air02-dev.azurewebsites.net/download-data/)) managed by the European Environmental Agency (EEA). The request is made for the following pollutants:
+The first script are [`C3S_Download.R`](script/C3S_Download.R). This script makes the request about weather variables to the [Climate Change Service](https://cds.climate.copernicus.eu) ([download link](https://eeadmz1-cws-wp-air02-dev.azurewebsites.net/download-data/)) managed by the Copernicus EU programme. The following table summarises the variables requested and the datasets accessed.
+
+| **variable**          | **period** | **dataset**       |
+|-----------------------|------------|-------------------|
+| Temperature           | 2013-2023  | ERA5-Land         |
+| Wind speed and angle  | 2013-2023  | ERA5-Land         |
+| Surface pressure      | 2013-2023  | ERA5-Land         |
+| Precipitation         | 2013-2023  | ERA5-Land         |
+| Vegetation index      | 2013-2023  | ERA5-Land         |
+| Solar radiation       | 2013-2023  | ERA5-Land         |
+| Relative humidity     | 2013-2023  | ERA5-Land         |
+| Boundary Layer Height | 2013-2023  | ERA5 Single Level |
+
+The ERA5-Land has a spatial resolution of 0.1° x 0.1° while ERA5 Single Level of 0.25° x 0.25°. Both are hourly.
+
+### C3S 2: Managing
+
+In the second script, [`C3S_Managing.R`](script/C3S_Managing.R), opens the netcdfs downloaded at the previous step, extract the data, and convert hourly observation to daily using different approaches (e.g. mean, max, median) depending on the peculiarities of the variable.
+
+### C3S 3: Extract  
+
+In the third script, [`C3S_Export.R`](script/C3S_Export.R), weather data are saved in a netcdf file.
 
