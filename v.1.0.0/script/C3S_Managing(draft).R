@@ -1,6 +1,6 @@
 library(doParallel)
 registerDoParallel()
-library(ncdf4)
+library(ncdf4) #version 1.22
 
 setwd("WE-C3S")
 vers <- "v.1.0.0"
@@ -9,10 +9,10 @@ versSSD <- paste0(ssd_path,"/",vers)
 
 # ERA5-Land TO BE UPDATED ####
 #listfiles
-lf <- list.files(paste0(versD,"/data/ERA5Land/hourly/raw"),pattern = ".nc")
+lf <- list.files(paste0(versSSD,"/data/ERA5Land/hourly/raw"),pattern = ".nc")
 fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
-  nc <- nc_open(paste0(versD,"/data/ERA5Land/hourly/raw/",i))
-  var <- nc$var[[1]][2][[1]]
+  nc <- nc_open(paste0(versSSD,"/data/ERA5Land/hourly/raw/",i))
+  var <- nc$var[[1]][[2]]
   t <-
     as.POSIXct(nc$dim[[3]]$vals * 3600,
                origin = as.POSIXct("1900-01-01 00:00:00"),
@@ -36,7 +36,7 @@ fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
 # these infomation are used to run the functions
 
 source(paste0(vers,"/script/functions.R"))
-path <- paste0(versD,"/data/ERA5Land/hourly/raw")
+path <- paste0(versSSD,"/data/ERA5Land/hourly/raw")
 variable <- c("u10", "v10")
 y <- ERA5Land(variable = variable,
               fileslist = fileslist,

@@ -1,7 +1,7 @@
 library(doParallel)
-registerDoParallel()
+registerDoParallel(cores=2)
 library(ncdf4)
-
+setwd("WE-C3S")
 vers <- "v.0.0.1"
 ssd_path <- "/Volumes/Extreme SSD/Lavoro/GRINS/GitHub/WE-C3S" #local
 versD <- paste0(ssd_path,"/",vers)

@@ -43,3 +43,5 @@ ncatt_put(ncout, "longitude", "degree east", "x")
 ncatt_put(ncout, "latitude", "degree north", "y")
 ncatt_put(ncout, "time", "axis","t")
 nc_close(ncout)
+
+
