@@ -1,3 +1,5 @@
+setwd("WE-C3S")
+
 #create netcdf --> #alcune variabili sono rimaste storte!! (tp, ssr, ecc.)
 lf <- list.files("data/WE/ERA5Land/daily",pattern = ".Rdata")
 load(paste0("data/WE/ERA5Land/daily/", lf[1]))

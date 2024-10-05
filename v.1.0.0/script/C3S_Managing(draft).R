@@ -2,10 +2,12 @@ library(doParallel)
 registerDoParallel()
 library(ncdf4)
 
-vers <- "v.0.0.1"
+setwd("WE-C3S")
+vers <- "v.1.0.0"
 ssd_path <- "/Volumes/Extreme SSD/Lavoro/GRINS/GitHub/WE-C3S" #local
-versD <- paste0(ssd_path,"/",vers)
+versSSD <- paste0(ssd_path,"/",vers)
 
+# ERA5-Land TO BE UPDATED ####
 #listfiles
 lf <- list.files(paste0(versD,"/data/ERA5Land/hourly/raw"),pattern = ".nc")
 fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
@@ -66,4 +68,37 @@ for (vv in variables) {
                 path = path)
   save(y, file = paste0("v.0.0.1/data/ERA5Land/daily/daily_", vv, ".Rdata"))
 }
+
+# ERA5 Single Level ####
+lf <- list.files(paste0(versSSD,"/data/ERA5SL/hourly/raw"),pattern = ".nc")
+fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
+  nc <- nc_open(paste0(versSSD,"/data/ERA5SL/hourly/raw/",i))
+  var <- nc$var[[3]][2][[1]]
+  t <-
+    as.POSIXct(nc$dim[[1]]$vals,
+               origin = as.POSIXct("1970-01-01 00:00:00"),
+               tz = "Etc/GMT-1")
+  y <- unique(substr(t, 1, 4))
+  m <- unique(months(t))
+  if (length(m) == 12) {
+    m <- "all"
+  }
+  fileslist <- data.frame(
+    nc_file = i,
+    var = var,
+    year = y,
+    month = m
+  )
+  fileslist
+}
+
+source(paste0(vers,"/script/functions.R"))
+path <- paste0(versSSD,"/data/ERA5SL/hourly/raw")
+variable <- c("blh")
+y <- ERA5SL(variable = variable,
+              fileslist = fileslist,
+              path = path)
+save(y, file = paste0(versSSD,"/data/ERA5SL/daily/blh.Rdata"))
+
+
 

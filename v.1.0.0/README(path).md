@@ -21,13 +21,13 @@ The first script are [`C3S_Download.R`](script/C3S_Download.R). This script make
 | Relative humidity     | 2013-2023  | ERA5-Land         |
 | Boundary Layer Height | 2013-2023  | ERA5 Single Level |
 
-The ERA5-Land has a spatial resolution of 0.1° x 0.1° while ERA5 Single Level of 0.25° x 0.25°. Both are hourly.
+The [ERA5-Land](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=overview) has a spatial resolution of 0.1° x 0.1° while [ERA5 Single Level](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview) of 0.25° x 0.25°. Request are made for a boundary box for Italy (i.e. 48, 6, 35, 19). Both datasets are hourly.
 
 ### C3S 2: Managing
 
-In the second script, [`C3S_Managing.R`](script/C3S_Managing.R), opens the netcdfs downloaded at the previous step, extract the data, and convert hourly observation to daily using different approaches (e.g. mean, max, median) depending on the peculiarities of the variable.
+In the second script, [`C3S_Managing.R`](script/C3S_Managing.R), the netcdfs downloaded at the previous step are opened, extracted the data, and convert them from hourly to daily using different approaches (e.g. mean, max, median) depending on the peculiarities of the variable considered. All these steps are made using speicifical functions imported from the [`functions.R`](script/functions.R) script.
 
 ### C3S 3: Extract  
 
-In the third script, [`C3S_Export.R`](script/C3S_Export.R), weather data are saved in a netcdf file.
+In the third script, [`C3S_Export.R`](script/C3S_Export.R), weather data are saved in a external netcdf file.
 

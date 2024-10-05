@@ -6,7 +6,7 @@ library("ecmwfr") #v.2.0.2 or more
 # library(doParallel)
 # registerDoParallel()
 
-
+setwd("WE-C3S")
 boundary <- c(48, 6, 35, 19)
 
 # ERA5Land ####
@@ -21,7 +21,7 @@ months <- c("01","02","03","04","05","06","07","08","09","10","11","12")
 time_wait <- 1 #seconds
 for (v in variables) {
   for (y in years) {
-    for (m in months) {
+    # for (m in months) {
     data<-tryCatch({
       setTimeLimit(elapsed=time_wait)
       request <- list(
@@ -40,11 +40,13 @@ for (v in variables) {
       wf_request(request = request)
       setTimeLimit(elapsed = Inf)
       c(iter = c(v,y), slp = era5[v,y])
-    },error=function(e)NULL)}}
+    },error=function(e)NULL)}
+  # }
 }
 
 #files need to be downloaded manually from the website and saved
 #in the folder "data/ERA5Land/hourly/raw
+# = 88 files
 
 # ERA5 Single Level ####
 library("ecmwfr") #v.2.0.2 or more
