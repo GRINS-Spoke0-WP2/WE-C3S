@@ -63,7 +63,6 @@ for (vv in variables) {
   save(y, file = paste0("v.0.0.1/data/ERA5Land/daily/daily_", vv, ".Rdata"))
 }
 
-#create netcdf --> #alcune variabili sono rimaste storte!! (tp, ssr, ecc.)
 lf <- list.files("data/WE/ERA5Land/daily",pattern = ".Rdata")
 load(paste0("data/WE/ERA5Land/daily/", lf[1]))
 lat <- rownames(y)
