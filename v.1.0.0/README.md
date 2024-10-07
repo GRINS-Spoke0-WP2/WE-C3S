@@ -8,7 +8,7 @@ The following section illustrates the operations to reproduce the WE-C3S v.1.0.0
 
 ### C3S 1: Download
 
-The first script are [`C3S_Download.R`](script/C3S_Download.R). This script makes the request about weather variables to the [Climate Change Service](https://cds.climate.copernicus.eu) ([download link](https://eeadmz1-cws-wp-air02-dev.azurewebsites.net/download-data/)) managed by the Copernicus EU programme. The following table summarises the variables requested and the datasets accessed.
+The first script is [`C3S_Download.R`](script/C3S_Download.R). This script makes the request about weather variables to the [Climate Change Service](https://cds.climate.copernicus.eu) ([download link](https://eeadmz1-cws-wp-air02-dev.azurewebsites.net/download-data/)) managed by the Copernicus EU programme. The following table summarises the variables requested and the datasets accessed.
 
 | **variable**          | **period** | **dataset**       |
 |-----------------------|------------|-------------------|
