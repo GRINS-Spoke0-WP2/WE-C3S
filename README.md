@@ -1,0 +1,13 @@
+# Weather data (WE)
+
+Meteorology plays a crucial role in studying air quality because atmospheric conditions directly influence the dispersion, concentration, and movement of pollutants. Wind patterns can transport contaminants over long distances, while temperature, humidity, and pressure affect chemical reactions in the air. These meteorological variables also capture the seasonal effects, as air quality tends to fluctuate with different weather patterns throughout the year. For instance, winter inversions can trap pollutants, while summer heat can intensify smog. Accurate meteorological monitoring is therefore essential to predict air quality changes and develop effective environmental protection strategies.
+
+ERA5 is a global reanalysis dataset produced by the European Centre for Medium-Range Weather Forecasts (ECMWF), providing detailed climate and meteorological data from 1950 to the present. It integrates a vast array of observational data with advanced weather models to produce consistent, high-resolution records of atmospheric, land, and oceanic conditions. ERA5 is widely used for weather and climate research, as well as for studying air quality, environmental monitoring, and other applications.
+
+## ERA5 Single Level
+The ERA5 Single Level dataset is the full version of the reanalysis and contains variables from both the atmosphere and the land surface. It provides data at the Earth's surface (single level), such as temperature, wind speed, precipitation, humidity, radiation, and atmospheric pressure. These variables are available at a high spatial resolution (about 31 km) and at hourly intervals, offering detailed insights into both short-term weather patterns and long-term climate trends. The dataset covers a wide range of applications, from climate monitoring to atmospheric research, and is considered one of the most comprehensive meteorological datasets available.
+
+## ERA5-Land
+ERA5-Land is a specialized subset of the ERA5 dataset, focusing specifically on land surface variables at a finer spatial resolution (around 9 km). It provides information on soil moisture, surface temperature, snow depth, evaporation, and runoff, among other variables related to the land surface. Unlike the broader ERA5 dataset, ERA5-Land does not include atmospheric variables such as wind or pressure. The higher resolution of ERA5-Land makes it particularly useful for applications that require detailed land surface information, such as hydrology, agriculture, and environmental modeling.
+
+Both datasets are invaluable for researchers needing precise meteorological and land surface data, with ERA5 providing a more comprehensive atmospheric view and ERA5-Land offering detailed insights into land surface processes.
