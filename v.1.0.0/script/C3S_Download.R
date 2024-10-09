@@ -1,5 +1,5 @@
-if(!require(remotes)){install.packages("remotes")}
-remotes::install_github("bluegreen-labs/ecmwfr", build_vignettes = TRUE)
+# if(!require(remotes)){install.packages("remotes")}
+# remotes::install_github("bluegreen-labs/ecmwfr", build_vignettes = TRUE)
 library("ecmwfr") #v.2.0.2 or more
 
 # library(foreach)
@@ -10,7 +10,8 @@ setwd("WE-C3S")
 boundary <- c(48, 6, 35, 19)
 
 # ERA5Land ####
-variables<-c("10m_u_component_of_wind","2m_dewpoint_temperature",
+variables<-c("10m_u_component_of_wind","10m_u_component_of_wind",
+             "2m_dewpoint_temperature",
              "2m_temperature", "surface_pressure",
              "leaf_area_index_high_vegetation","leaf_area_index_low_vegetation",
              "total_precipitation",
@@ -46,7 +47,7 @@ for (v in variables) {
 
 #files need to be downloaded manually from the website and saved
 #in the folder "data/ERA5Land/hourly/raw
-# = 88 files
+# = 99 files
 
 # ERA5 Single Level ####
 library("ecmwfr") #v.2.0.2 or more

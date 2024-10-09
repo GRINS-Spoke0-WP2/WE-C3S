@@ -1,6 +1,6 @@
 library(doParallel)
 registerDoParallel()
-library(ncdf4) #version 1.22
+library(ncdf4) #version of the package: 1.22
 
 setwd("WE-C3S")
 vers <- "v.1.0.0"
@@ -12,10 +12,10 @@ versSSD <- paste0(ssd_path,"/",vers)
 lf <- list.files(paste0(versSSD,"/data/ERA5Land/hourly/raw"),pattern = ".nc")
 fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
   nc <- nc_open(paste0(versSSD,"/data/ERA5Land/hourly/raw/",i))
-  var <- nc$var[[1]][[2]]
+  var <- nc$var[[3]][2][[1]]
   t <-
-    as.POSIXct(nc$dim[[3]]$vals * 3600,
-               origin = as.POSIXct("1900-01-01 00:00:00"),
+    as.POSIXct(nc$dim[[1]]$vals,
+               origin = as.POSIXct("1970-01-01 00:00:00"),
                tz = "Etc/GMT-1")
   y <- unique(substr(t, 1, 4))
   m <- unique(months(t))
@@ -38,11 +38,11 @@ fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
 source(paste0(vers,"/script/functions.R"))
 path <- paste0(versSSD,"/data/ERA5Land/hourly/raw")
 variable <- c("u10", "v10")
-y <- ERA5Land(variable = variable,
+y <- ERA5Land(variable = variable, # waiting for v10
               fileslist = fileslist,
               path = path)
 save(y, file = paste0(versD,"/data/ERA5Land/daily/daily_wind.Rdata"))
-load("v.0.0.1/data/ERA5Land/daily/daily_wind.Rdata")
+load("v.1.0.0/data/ERA5Land/daily/daily_wind.Rdata")
 yt <- y
 y <- yt[1:131, 1:131, ]
 save(y, file = "v.0.0.1/data/ERA5Land/daily/daily_windspeed.Rdata")
@@ -53,13 +53,19 @@ variable <- c("t2m", "d2m")
 y <- ERA5Land(variable = variable,
               fileslist = fileslist,
               path = path)
-save(y, file = "v.0.0.1/data/ERA5Land/daily/daily_rh.Rdata")
+save(y, file = "v.1.0.0/data/ERA5Land/daily/daily_rh.Rdata")
 
 variable <- c("t2m")
 y <- ERA5Land(variable = variable,
               fileslist = fileslist,
               path = path)
-save(y, file = "v.0.0.1/data/ERA5Land/daily/daily_t2m.Rdata")
+#--check
+df <- as.data.frame(expand.grid(dimnames(y)[[1]],dimnames(y)[[2]]))
+names(df)<-c("lat","lon")
+df$t2m <- c(y[dim(y)[1]:1,,1])
+ggplot(df)+
+  geom_tile(aes(x=lon,y=lat,fill=t2m))
+save(y, file = "v.1.0.0/data/ERA5Land/daily/daily_t2m.Rdata")
 
 variables <- c("lai_lv", "lai_hv", "tp", "ssr") #STORTE!
 for (vv in variables) {
