@@ -1,6 +1,7 @@
 # if(!require(remotes)){install.packages("remotes")}
 # remotes::install_github("bluegreen-labs/ecmwfr", build_vignettes = TRUE)
 library("ecmwfr") #v.2.0.2 or more
+wf_set_key("333dea74-065a-4165-b158-376939a21a5d")
 
 # library(foreach)
 # library(doParallel)
@@ -10,7 +11,7 @@ setwd("WE-C3S")
 boundary <- c(48, 6, 35, 19)
 
 # ERA5Land ####
-variables<-c("10m_u_component_of_wind","10m_u_component_of_wind",
+variables<-c("10m_v_component_of_wind","10m_u_component_of_wind",
              "2m_dewpoint_temperature",
              "2m_temperature", "surface_pressure",
              "leaf_area_index_high_vegetation","leaf_area_index_low_vegetation",
@@ -27,9 +28,9 @@ for (v in variables) {
       setTimeLimit(elapsed=time_wait)
       request <- list(
         dataset_short_name = "reanalysis-era5-land",
-        product_type = "reanalysis",
+        # product_type = "reanalysis",
         variable = v,
-        year = y,
+        year = as.character(y),
         month = months,
         day = c("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"),
         time = c("00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"),
@@ -44,6 +45,7 @@ for (v in variables) {
     },error=function(e)NULL)}
   # }
 }
+
 
 #files need to be downloaded manually from the website and saved
 #in the folder "data/ERA5Land/hourly/raw
