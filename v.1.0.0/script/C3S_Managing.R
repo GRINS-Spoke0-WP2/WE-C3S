@@ -2,16 +2,23 @@ library(doParallel)
 registerDoParallel()
 library(ncdf4) #version of the package: 1.22
 
+#for local computer
 setwd("WE-C3S")
 vers <- "v.1.0.0"
-ssd_path <- "/Volumes/Extreme SSD/Lavoro/GRINS/GitHub/WE-C3S" #local
-versSSD <- paste0(ssd_path,"/",vers)
+# ssd_path <- "/Volumes/Extreme SSD/Lavoro/GRINS/GitHub/WE-C3S" #local
+# vers <- paste0(ssd_path,"/",vers)
 
-# ERA5-Land TO BE UPDATED ####
+# for HPC
+# setwd("GRINS/WE-C3S")
+# vers <- "v.1.0.0"
+# ssd_path <- "" 
+# vers <- paste0(ssd_path,vers)
+
+# ERA5-Land ####
 #listfiles
-lf <- list.files(paste0(versSSD,"/data/ERA5Land/hourly/raw"),pattern = ".nc")
+lf <- list.files(paste0(vers,"/data/ERA5Land/hourly/raw"),pattern = ".nc")
 fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
-  nc <- nc_open(paste0(versSSD,"/data/ERA5Land/hourly/raw/",i))
+  nc <- nc_open(paste0(vers,"/data/ERA5Land/hourly/raw/",i))
   var <- nc$var[[3]][2][[1]]
   t <-
     as.POSIXct(nc$dim[[1]]$vals,
@@ -36,49 +43,43 @@ fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
 # these infomation are used to run the functions
 
 source(paste0(vers,"/script/functions.R"))
-path <- paste0(versSSD,"/data/ERA5Land/hourly/raw")
+path <- paste0(vers,"/data/ERA5Land/hourly/raw")
 variable <- c("u10", "v10")
-y <- ERA5Land(variable = variable, # waiting for v10
+y <- ERA5Land(variable = variable, 
               fileslist = fileslist,
               path = path)
-save(y, file = paste0(versD,"/data/ERA5Land/daily/daily_wind.Rdata"))
-load("v.1.0.0/data/ERA5Land/daily/daily_wind.Rdata")
+save(y, file = paste0(vers,"/data/ERA5Land/daily/daily_wind.Rdata"))
+# load(paste0(vers,"/data/ERA5Land/daily/daily_wind.Rdata"))
 yt <- y
 y <- yt[1:131, 1:131, ]
-save(y, file = "v.0.0.1/data/ERA5Land/daily/daily_windspeed.Rdata")
+save(y, file = paste0(vers,"/data/ERA5Land/daily/daily_windspeed.Rdata"))
 y <- yt[1:131, 132:262, ]
-save(y, file = "v.0.0.1/data/ERA5Land/daily/daily_winddir.Rdata") #1sud, 2ovest, 3nord, 4est
+save(y, file = paste0(vers,"/data/ERA5Land/daily/daily_winddir.Rdata")) #1sud, 2ovest, 3nord, 4est
 
 variable <- c("t2m", "d2m")
 y <- ERA5Land(variable = variable,
               fileslist = fileslist,
               path = path)
-save(y, file = "v.1.0.0/data/ERA5Land/daily/daily_rh.Rdata")
+save(y, file = paste0(vers,"/data/ERA5Land/daily/daily_rh.Rdata"))
 
 variable <- c("t2m")
 y <- ERA5Land(variable = variable,
               fileslist = fileslist,
               path = path)
-#--check
-df <- as.data.frame(expand.grid(dimnames(y)[[1]],dimnames(y)[[2]]))
-names(df)<-c("lat","lon")
-df$t2m <- c(y[dim(y)[1]:1,,1])
-ggplot(df)+
-  geom_tile(aes(x=lon,y=lat,fill=t2m))
-save(y, file = "v.1.0.0/data/ERA5Land/daily/daily_t2m.Rdata")
+save(y, file = paste0(vers,"/data/ERA5Land/daily/daily_t2m.Rdata"))
 
-variables <- c("lai_lv", "lai_hv", "tp", "ssr") #STORTE!
+variables <- c("lai_lv", "lai_hv", "tp", "ssr")
 for (vv in variables) {
   y <- ERA5Land(variable = vv,
                 fileslist = fileslist,
                 path = path)
-  save(y, file = paste0("v.0.0.1/data/ERA5Land/daily/daily_", vv, ".Rdata"))
+  save(y, file = paste0(vers,"/data/ERA5Land/daily/daily_", vv, ".Rdata"))
 }
 
 # ERA5 Single Level ####
-lf <- list.files(paste0(versSSD,"/data/ERA5SL/hourly/raw"),pattern = ".nc")
+lf <- list.files(paste0(vers,"/data/ERA5SL/hourly/raw"),pattern = ".nc")
 fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
-  nc <- nc_open(paste0(versSSD,"/data/ERA5SL/hourly/raw/",i))
+  nc <- nc_open(paste0(vers,"/data/ERA5SL/hourly/raw/",i))
   var <- nc$var[[3]][2][[1]]
   t <-
     as.POSIXct(nc$dim[[1]]$vals,
@@ -99,12 +100,12 @@ fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
 }
 
 source(paste0(vers,"/script/functions.R"))
-path <- paste0(versSSD,"/data/ERA5SL/hourly/raw")
+path <- paste0(vers,"/data/ERA5SL/hourly/raw")
 variable <- c("blh")
 y <- ERA5SL(variable = variable,
               fileslist = fileslist,
               path = path)
-save(y, file = paste0(versSSD,"/data/ERA5SL/daily/blh.Rdata"))
+save(y, file = paste0(vers,"/data/ERA5SL/daily/blh.Rdata"))
 
 
 

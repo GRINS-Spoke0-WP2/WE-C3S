@@ -4,7 +4,6 @@ The following section illustrates the operations to reproduce the WE-C3S v.1.0.0
 
 1. [Download](#C3S-1-Download)
 2. [Managing](#C3S-2-Managing)
-3. [Export](#C3S-3-Export)
 
 ### C3S 1: Download
 
@@ -25,9 +24,4 @@ The [ERA5-Land](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?
 
 ### C3S 2: Managing
 
-In the second script, [`C3S_Managing.R`](script/C3S_Managing.R), the netcdfs downloaded at the previous step are opened, extracted the data, and convert them from hourly to daily using different approaches (e.g. mean, max, median) depending on the peculiarities of the variable considered. All these steps are made using speicifical functions imported from the [`functions.R`](script/functions.R) script.
-
-### C3S 3: Extract  
-
-In the third script, [`C3S_Export.R`](script/C3S_Export.R), weather data are saved in a external netcdf file.
-
+In the second script, [`C3S_Managing.R`](script/C3S_Managing.R), the netcdfs downloaded at the previous step are opened, extracted the data, and convert them from hourly to daily using different approaches (e.g. mean, max, median) depending on the peculiarities of the variable considered. All these steps are made using speicifical functions imported from the [`functions.R`](script/functions.R) script. Outputs are Rdata files corresponding to one variable for the entire spatio-temporal domain (Italy, from 2013 to 2023)

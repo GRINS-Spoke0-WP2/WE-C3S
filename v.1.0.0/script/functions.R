@@ -168,8 +168,7 @@ ERA5SL <-
   }
 
 flip_nc <- function(arr) {
-  arr <- aperm(arr, c(2, 1, 3))
-  arr <- arr[dim(arr)[1]:1,,]
+  aperm(arr,c(2,1,3))
 }
 
 
