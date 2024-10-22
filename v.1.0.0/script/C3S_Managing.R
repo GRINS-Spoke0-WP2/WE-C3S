@@ -11,8 +11,6 @@ vers <- "v.1.0.0"
 # for HPC
 # setwd("GRINS/WE-C3S")
 # vers <- "v.1.0.0"
-# ssd_path <- "" 
-# vers <- paste0(ssd_path,vers)
 
 # ERA5-Land ####
 #listfiles

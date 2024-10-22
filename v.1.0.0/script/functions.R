@@ -5,7 +5,8 @@ ERA5Land <- function(variable, fileslist, path) {
   variable <- variable[order(variable)]
   v <-
     matrix(which(fileslist$var %in% variable),
-           nrow = nrow(unique(fileslist[, c(3, 4)])),
+           ncol = length(variable),
+           # nrow = nrow(unique(fileslist[, c(3, 4)])),
            byrow = T)
   for (i in 1:nrow(v)) {
     nc <- list()
@@ -16,6 +17,7 @@ ERA5Land <- function(variable, fileslist, path) {
     }
     lon <- nc[[1]]$dim$longitude$vals
     lat <- nc[[1]]$dim$latitude$vals
+    time <- nc[[1]]$dim$valid_time$vals
     if (all(c("d2m", "t2m") %in% variable)) {
       #relative humidity
       y1 <- ncvar_get(nc[[1]], "d2m")
@@ -55,9 +57,11 @@ ERA5Land <- function(variable, fileslist, path) {
     }
     colnames(y_d) <- round(lon, 2)
     rownames(y_d) <- round(lat, 2)
+    dimnames(y_d)[[3]] <- as.Date(time/(24*60*60))[seq(1,length(time),24)]
     if ("y_d2" %in% ls()) {
       colnames(y_d2) <- round(lon, 2)
       rownames(y_d2) <- round(lat, 2)
+      dimnames(y_d2)[[3]] <- as.Date(time/(24*60*60))[seq(1,length(time),24)]
       y_d <- abind(y_d, y_d2, along = 2)
       rm(y_d2)
     }
@@ -79,7 +83,7 @@ to_daily <- function(arr, f) {
       print(d)
       idx <- ((24 * (d - 1)) + 1):(24 * d)
       if (f == "fix") {
-        y_d <- arr[, , length(idx)]
+        y_d <- arr[, , idx[length(idx)]]
       } else {
         if (f == "getmode") {
           arr[, , idx] <- class_degree(arr[, , idx])
