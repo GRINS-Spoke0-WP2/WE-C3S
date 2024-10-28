@@ -1,5 +1,5 @@
 library(ggplot2)
-# setwd("WE-C3S")
+setwd("WE-C3S")
 
 lf <- list.files("v.1.0.0/data/ERA5Land/daily", pattern = ".Rdata")
 

@@ -55,7 +55,14 @@ for (v in variables) {
 library("ecmwfr") #v.2.0.2 or more
 wf_set_key("333dea74-065a-4165-b158-376939a21a5d")
 boundary <- c(48, 6, 35, 19)
-variables<- c("boundary_layer_height")
+variables<-c("10m_v_component_of_wind","10m_u_component_of_wind",
+             "2m_dewpoint_temperature",
+             "2m_temperature", "surface_pressure",
+             "leaf_area_index_high_vegetation","leaf_area_index_low_vegetation",
+             "total_precipitation",
+             "surface_net_solar_radiation",
+             "boundary_layer_height")
+
 years<-c(2013:2023)
 time_wait<-2#seconds
 for (v in variables) {
@@ -65,7 +72,7 @@ for (v in variables) {
       request <- list(
         dataset_short_name = "reanalysis-era5-single-levels",
         product_type = "reanalysis",
-        variable = "boundary_layer_height",
+        variable = v,
         year = y,
         month = c("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"),
         day = c("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"),

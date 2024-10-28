@@ -121,11 +121,11 @@ ERA5SL <-
     variable <- variable[order(variable)]
     v <-
       matrix(which(fileslist$var %in% variable),
-             nrow = nrow(unique(fileslist[, c(3, 4)])),
+             ncol = length(variable),
              byrow = T)
-    if (variable == "u10,v10,t2m,tp") {
-      v <- matrix(6)
-    } #manuale
+    # if (variable == "u10,v10,t2m,tp") {
+    #   v <- matrix(6)
+    # } #manuale
     for (i in 1:nrow(v)) {
       nc <- list()
       for (j in 1:ncol(v)) {
@@ -135,6 +135,7 @@ ERA5SL <-
       }
       lon <- nc[[1]]$dim$longitude$vals
       lat <- nc[[1]]$dim$latitude$vals
+      time <- nc[[1]]$dim$valid_time$vals
       if ("blh" %in% variable) {
         y <- ncvar_get(nc[[1]], "blh")
         y <- flip_nc(y)
@@ -162,6 +163,7 @@ ERA5SL <-
       }
       colnames(y_d) <- round(lon, 2)
       rownames(y_d) <- round(lat, 2)
+      dimnames(y_d)[[3]] <- as.Date(time/(24*60*60))[seq(1,length(time),24)]
       if (i == 1) {
         y_d_tot <- y_d
       } else{
