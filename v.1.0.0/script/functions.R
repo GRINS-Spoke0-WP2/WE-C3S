@@ -1,4 +1,4 @@
-ERA5Land <- function(variable, fileslist, path) {
+fromHtoD <- function(variable, fileslist, path) {
   library(abind)
   fileslist <-
     fileslist[order(fileslist$year, fileslist$month, fileslist$var),]
@@ -52,7 +52,11 @@ ERA5Land <- function(variable, fileslist, path) {
       y_wd <- flip_nc(y_wd)
       y_d <- to_daily(y_ws, "mean")
       y_d2 <- to_daily(y_wd, "getmode")
-    } else {
+    } else if ("blh" %in% variable) {
+        y <- ncvar_get(nc[[1]], "blh")
+        y <- flip_nc(y)
+        y_d <- to_daily(y, "mean")
+    }else {
       stop("variable not recognized")
     }
     colnames(y_d) <- round(lon, 2)
@@ -110,68 +114,6 @@ getmode <- function(v) {
   uniqv <- unique(v)
   uniqv[which.max(tabulate(match(v, uniqv)))]
 }
-
-
-ERA5SL <-
-  function(variable, fileslist, path) {
-    #le variabili multiple WE si bindano nella terza dimensione
-    library(abind)
-    fileslist <-
-      fileslist[order(fileslist$year, fileslist$month, fileslist$var),]
-    variable <- variable[order(variable)]
-    v <-
-      matrix(which(fileslist$var %in% variable),
-             ncol = length(variable),
-             byrow = T)
-    # if (variable == "u10,v10,t2m,tp") {
-    #   v <- matrix(6)
-    # } #manuale
-    for (i in 1:nrow(v)) {
-      nc <- list()
-      for (j in 1:ncol(v)) {
-        print(paste(fileslist$var[v[i, j]], fileslist$year[v[i, j]], fileslist$month[v[i, j]]))
-        nc[[j]] <-
-          nc_open(paste0(path, "/", fileslist$nc_file[v[i, j]]))
-      }
-      lon <- nc[[1]]$dim$longitude$vals
-      lat <- nc[[1]]$dim$latitude$vals
-      time <- nc[[1]]$dim$valid_time$vals
-      if ("blh" %in% variable) {
-        y <- ncvar_get(nc[[1]], "blh")
-        y <- flip_nc(y)
-        y_d <- to_daily(y, "mean")
-      } else if ("u10,v10,t2m,tp" %in% variable) {
-        y1 <- ncvar_get(nc[[1]], "u10")
-        y2 <- ncvar_get(nc[[1]], "v10")
-        y_ws <- sqrt((y1 ^ 2) + (y2 ^ 2))
-        y_wd <- atan2(y1 / y_ws, y2 / y_ws) #wind direction in radius
-        y_wd <- 180 - (y_wd * 180 / pi) #wind direction in angle
-        y_ws <- flip_nc(y_ws)
-        y_wd <- flip_nc(y_wd)
-        y_d1 <- to_daily(y_ws, "mean")
-        y_d2 <- to_daily(y_wd, "getmode")
-        y3 <- ncvar_get(nc[[1]], "t2m")
-        y3 <- y3 - 273.15
-        y3 <- flip_nc(y3)
-        y_d3 <- to_daily(y3, "mean")
-        y4 <- ncvar_get(nc[[1]], "tp")
-        y4 <- flip_nc(y4)
-        y_d4 <- to_daily(y4, "fix")
-        y_d <- abind(y_d1, y_d2, y_d3, y_d4, along = 4)
-      } else {
-        stop("variable not recognized")
-      }
-      colnames(y_d) <- round(lon, 2)
-      rownames(y_d) <- round(lat, 2)
-      dimnames(y_d)[[3]] <- as.Date(time/(24*60*60))[seq(1,length(time),24)]
-      if (i == 1) {
-        y_d_tot <- y_d
-      } else{
-        y_d_tot <- abind(y_d_tot, y_d, along = 3)
-      }
-    }
-    return(y_d_tot)
-  }
 
 flip_nc <- function(arr) {
   aperm(arr,c(2,1,3))
