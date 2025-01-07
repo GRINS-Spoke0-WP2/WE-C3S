@@ -1,7 +1,7 @@
 library(sf)
 
 com24 <-
-  st_read(dsn = "geo_tools/geo_matching/dati/confini/extract_zip/Limiti01012024/Com01012024",
+  st_read(dsn = "geo_tools/geo_matching/v.1.0.0/dati/confini/extract_zip/Limiti01012024/Com01012024",
           layer = "Com01012024_WGS84")
 com24 <- st_transform(com24, 4326)
 
