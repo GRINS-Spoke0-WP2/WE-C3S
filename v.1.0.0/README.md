@@ -3,7 +3,7 @@
 The following section illustrates the operations to reproduce the WE-C3S v.1.0.0 dataset:
 
 1. [Download](#C3S-1-Download)
-2. [Managing](#C3S-2-Daily)
+2. [Daily](#C3S-2-Daily)
 
 ### C3S 1: Download
 
