@@ -3,3 +3,4 @@ temperature_municipality.Rdata
 *.nc
 v.1.0.0/data/ERA5SL/daily/blh.Rdata
 *.Rdata
+v.1.0.0/data.nosync/ERA5Land_ext.rds
