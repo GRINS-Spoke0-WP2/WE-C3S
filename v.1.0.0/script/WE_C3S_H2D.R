@@ -40,7 +40,7 @@ fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
 # -> name of the netcdf file | variable | year | month <- #
 # these infomation are used to run the functions
 
-source(paste0(vers,"/script/functions.R"))
+source(paste0(vers,"/script/WE_C3S_functions.R"))
 path <- paste0(vers,"/data/ERA5Land/hourly/raw")
 variable <- c("u10", "v10")
 y <- fromHtoD(variable = variable, 
@@ -97,7 +97,7 @@ fileslist <- foreach (i = lf, .combine = rbind) %dopar% {
   fileslist
 }
 
-source(paste0(vers,"/script/functions.R"))
+source(paste0(vers,"/script/WE_C3S_functions.R"))
 path <- paste0(vers,"/data/ERA5SL/hourly/raw")
 variable <- c("u10", "v10")
 y <- fromHtoD(variable = variable, 
