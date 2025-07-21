@@ -2,6 +2,7 @@
 # Import packages --------------------------------------------------------------
 
 rm(list = ls())
+setwd("GitHub/GRINS-Spoke0-WP2")
 setwd("WE-C3S/v.1.0.0")
 library(reshape2)
 library(devtools)
@@ -56,7 +57,7 @@ for (variable_i in VARIABLES) {
     
     # run
     tic()
-    temp <- src_array[[dir_i]][,,1:10]
+    temp <- src_array[[dir_i]]
     idw_df_i <- idw2hr(
       data = temp,
       outgrid_params = list(
