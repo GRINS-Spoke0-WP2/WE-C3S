@@ -8,7 +8,7 @@ The following section illustrates the operations to reproduce the WE-C3S v.1.0.0
 
 ### C3S 1: Download
 
-The first script is [`WE_C3S_Download.R`](script/WE_C3S_Download.R). This script makes the request about weather variables to the [Climate Change Service](https://cds.climate.copernicus.eu) ([download link](https://eeadmz1-cws-wp-air02-dev.azurewebsites.net/download-data/)) managed by the Copernicus EU programme. The following table summarises the variables requested and the datasets accessed.
+The first script is [`C3S_Download.R`](script/C3S_Download.R). This script makes the request about weather variables to the [Climate Change Service](https://cds.climate.copernicus.eu) ([download link](https://eeadmz1-cws-wp-air02-dev.azurewebsites.net/download-data/)) managed by the Copernicus EU programme. The following table summarises the variables requested and the datasets accessed.
 
 | **variable**          | **period** | **dataset**                  |
 |-----------------------|------------|------------------------------|
@@ -25,6 +25,6 @@ The [ERA5-Land](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?
 
 ### C3S 2: From Hourly to Daily
 
-In the second script, [`WE_C3S_H2D.R`](script/WE_C3S_H2D.R), the netcdfs downloaded at the previous step are opened, extracted the data, and convert them from hourly to daily using different approaches (e.g. mean, max, median) depending on the peculiarities of the variable considered. All these steps are made using speicifical functions imported from the [`functions.R`](script/WE_C3Sfunctions.R) script. Outputs are Rdata files corresponding to one variable for the entire spatio-temporal domain (Italy, from 2013 to 2023)
+In the second script, [`C3S_H2D.R`](script/C3S_H2D.R), the netcdfs downloaded at the previous step are opened, extracted the data, and convert them from hourly to daily using different approaches (e.g. mean, max, median) depending on the peculiarities of the variable considered. All these steps are made using speicifical functions imported from the [`C3S_functions.R`](script/C3Sfunctions.R) script. Outputs are Rdata files corresponding to one variable for the entire spatio-temporal domain (Italy, from 2013 to 2023)
 
 ### C3S 3: From raw resolution to High Resolution

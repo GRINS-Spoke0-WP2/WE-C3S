@@ -65,6 +65,7 @@ y <- fromHtoD(variable = variable,
               fileslist = fileslist,
               path = path)
 save(y, file = paste0(vers,"/data/ERA5Land/daily/daily_t2m.Rdata"))
+# if era5sl the y is multiplied by 24 and saved in v.1.0.1
 
 variables <- c("lai_lv", "lai_hv", "tp", "ssr")
 for (vv in variables) {
