@@ -2,17 +2,10 @@
 # Import packages --------------------------------------------------------------
 
 rm(list = ls())
+setwd("WE-C3S/v.1.0.0")
 library(reshape2)
 library(devtools)
-devtools::document(
-  pkg = "~/Desktop/geotools"
-)
 library(tictoc)
-install.packages(
-  "~/Desktop/geotools", 
-  repos = NULL,
-  type = "source"
-)
 library(geotools)
 
 # Configuration items ----------------------------------------------------------
@@ -130,7 +123,7 @@ for (variable_i in VARIABLES) {
   hr_array$time <- as.numeric(hr_array$time)
   hr_array <- acast(hr_array, latitude ~ longitude ~ time,
                     value.var = "ERA5Land_var")
-  saveRDS(hr_array, file = sprintf("data/hr/daily_005x005_%s.rds",
+  saveRDS(hr_array, file = sprintf("data/HRs/daily_005x005_%s.rds",
                                    variable_i))
   print(
     sprintf("- High-res. data exported, %s.", toc(quiet=TRUE)$callback_msg)

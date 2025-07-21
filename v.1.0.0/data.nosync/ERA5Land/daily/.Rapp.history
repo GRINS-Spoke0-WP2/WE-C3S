@@ -1,9 +1,0 @@
-load("/Users/alessandrofusta/Library/Mobile Documents/com~apple~CloudDocs/Lavoro/PhD Bergamo/GRINS/GitHub/GRINS-Spoke0-WP2/WE-C3S/v.1.0.0/data/ERA5Land/daily/daily_lai_hv.Rdata")
-load("/Users/alessandrofusta/Library/Mobile Documents/com~apple~CloudDocs/Lavoro/PhD Bergamo/GRINS/GitHub/GRINS-Spoke0-WP2/WE-C3S/v.1.0.0/data/ERA5Land/daily/daily_lai_hv.Rdata")
-ls()
-dim(y)
-load("/Users/alessandrofusta/Library/Mobile Documents/com~apple~CloudDocs/Lavoro/PhD Bergamo/GRINS/GitHub/GRINS-Spoke0-WP2/WE-C3S/v.1.0.0/data/ERA5SL/daily/daily_blh.Rdata")
-131*131
-ls()
-dim(y)
-53*53
