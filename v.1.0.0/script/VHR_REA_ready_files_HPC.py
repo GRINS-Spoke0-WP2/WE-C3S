@@ -26,7 +26,7 @@ for filename in files:
     
     
     
-    
+# ds_coarse = ds_daily.coarsen(rlat=3, rlon=3, boundary='trim').mean()
     
     
     

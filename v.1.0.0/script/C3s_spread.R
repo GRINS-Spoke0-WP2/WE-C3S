@@ -2,7 +2,7 @@ library(ncdf4)
 
 nc <- nc_open("WE-C3S/v.1.0.0/data/ERA5SL/spread/prova.nc")
 
-nc
+nc$var$expver
 t2m_spread <- ncvar_get(nc,"t2m")
 
 ncvar_get(nc,"longitude")
