@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['v.1.0.0/script/VHR_REA_functions.py', 'v.1.0.0/script/VHR_REA_download.py', 'v.1.0.0/script/CERRA_lighting.py', 'v.1.0.0/script/VHR_REA_IT_upscaling.py']
+recent_files = ['../../../../../../../../../.spyder-py3/temp.py', 'v.1.0.0/script/VHR_REA_IT_rotating_HPC.py', 'v.1.0.0/script/CERRA_lighting.py']
 
 [main]
 version = 0.2.0
